@@ -1,10 +1,9 @@
-import { IsInt, IsNotEmpty, Min } from 'class-validator';
+import { IsInt, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class FindLinkDto {
+export class LinkIdParamDto {
   @Type(() => Number)
   @IsInt()
-  @IsNotEmpty()
   @Min(1)
   id: number;
 }

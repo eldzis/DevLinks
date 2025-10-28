@@ -1,6 +1,12 @@
 import { type Link } from '../hooks/useLinks';
 
-export function LinkList({ links }: { links: Link[] }) {
+type LinkListProps = {
+  links: Link[];
+  onDelete: (id: number) => void;
+  deletingId: number | null;
+};
+
+export function LinkList({ links, onDelete, deletingId }: LinkListProps) {
   if (links.length === 0) return <p>No links yet. Add your first one!</p>;
 
   return (
@@ -20,25 +26,54 @@ export function LinkList({ links }: { links: Link[] }) {
           <div
             style={{
               display: 'flex',
-              flexDirection: 'column',
-              gap: 4,
+              justifyContent: 'space-between',
               alignItems: 'flex-start',
+              gap: 12,
             }}
           >
-            {l.title ? <div style={{ fontWeight: 600 }}>{l.title}</div> : null}
-
-            <a
-              href={l.url}
-              target="_blank"
-              rel="noreferrer"
-              style={{ wordBreak: 'break-all' }}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 4,
+                alignItems: 'flex-start',
+              }}
             >
-              {l.url}
-            </a>
+              {l.title ? (
+                <div style={{ fontWeight: 600 }}>{l.title}</div>
+              ) : null}
 
-            <div style={{ color: '#666', fontSize: 12 }}>
-              {new Date(l.createdAt).toLocaleString()}
+              <a
+                href={l.url}
+                target="_blank"
+                rel="noreferrer"
+                style={{ wordBreak: 'break-all' }}
+              >
+                {l.url}
+              </a>
+
+              <div style={{ color: '#666', fontSize: 12 }}>
+                {new Date(l.createdAt).toLocaleString()}
+              </div>
             </div>
+
+            <button
+              type="button"
+              onClick={() => onDelete(l.id)}
+              disabled={deletingId === l.id}
+              style={{
+                background: 'transparent',
+                border: '1px solid #ff8a80',
+                color: '#d32f2f',
+                padding: '6px 12px',
+                borderRadius: 6,
+                cursor: deletingId === l.id ? 'progress' : 'pointer',
+                fontSize: '0.9rem',
+                minWidth: 90,
+              }}
+            >
+              {deletingId === l.id ? 'Deleting…' : 'Delete'}
+            </button>
           </div>
         </li>
       ))}

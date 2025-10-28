@@ -1,14 +1,17 @@
 import {
-  Controller,
-  Post,
   Body,
+  Controller,
+  Delete,
   Get,
-  Param,
+  HttpCode,
+  HttpStatus,
   NotFoundException,
+  Param,
+  Post,
   Redirect,
 } from '@nestjs/common';
 import { LinksService } from './links.service';
-import { CreateLinkDto, FindLinkDto, LinkResponseDto } from './dto';
+import { CreateLinkDto, LinkIdParamDto, LinkResponseDto } from './dto';
 
 @Controller()
 export class LinksController {
@@ -28,9 +31,15 @@ export class LinksController {
 
   @Get(':id')
   @Redirect()
-  async findById(@Param() params: FindLinkDto) {
+  async findById(@Param() params: LinkIdParamDto) {
     const link = await this.linksService.findById(params);
     if (!link) throw new NotFoundException('Link for redirect not found');
     return { url: link.url, statusCode: 302 };
+  }
+
+  @Delete('links/:id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async remove(@Param() params: LinkIdParamDto): Promise<void> {
+    await this.linksService.remove(params);
   }
 }
