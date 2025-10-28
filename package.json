@@ -11,7 +11,12 @@
   },
   "scripts": {
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "compose:up": "docker compose up --build",
+    "compose:down": "docker compose down",
+    "compose:rebuild": "docker compose up --build --force-recreate",
+    "compose:rebuild:api": "docker compose up --build --force-recreate --no-deps api",
+    "compose:rebuild:web": "docker compose up --build --force-recreate --no-deps web"
   },
   "devDependencies": {
     "prettier": "^3.3.3"
