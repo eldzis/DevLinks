@@ -131,13 +131,13 @@ npm run compose:down
 
 The compressed delivery window left a few enhancements on the backlog:
 
-1. Finishing the extra features that were descriped in the original task requirements.
+1. Finishing the extra features that were described in the original task requirements.
 2. Rename the controller to `@Controller('links')` and move redirects to `GET /links/redirect/:id` for clarity while keeping a separate route for public sharing. Then also move health check to /health path.
 3. Align Prisma exception filter responses with NestJS’s default error payload shape (include `error` keys, preserve validation arrays).
 4. Add Swagger/OpenAPI docs and generate clients (e.g., OpenAPI + Zod) for shared runtime validation between API and web.
 5. hoist ESLint configuration to the repo root with workspace-specific extensions to reduce duplication.
 6. Introduce a root-level `.env` (or config generator) to streamline environment setup across workspaces.
-7. Enable the React 19 compiler for automatic memoization once the ecosystem stabilizes around the new transform.
+7. Enable the React 19 compiler for automatic memoization.
 8. Replace inline React styles with CSS Modules or a component library (MUI, HeroUI, or Tailwind) for a richer, accessible UI.
 9. Continue investing in the Vite-based workflow that enabled rapid delivery here—evaluate SSR, preview builds, or alternative bundlers if requirements outgrow this lightweight setup or very possibly moving to webpack for flexibility and large scale apps.
-10. Possibly clean up the package.json file for workspaces. Fully go through all dependencies, remove unecessary, update scripts, etc.
+10. Possibly clean up the package.json file for workspaces. Fully go through all dependencies, remove unnecessary, update scripts, etc.
